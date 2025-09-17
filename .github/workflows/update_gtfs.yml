@@ -1,0 +1,57 @@
+name: Update and Clean Zdzit Olsztyn GTFS
+
+permissions:
+  contents: write
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  download_and_clean:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install Python dependencies
+        run: pip install requests beautifulsoup4
+
+      - name: Download latest GTFS feeds
+        run: python download_gtfs.py
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.22'
+
+      - name: Install gtfstidy
+        run: go install github.com/patrickbr/gtfstidy@latest
+
+      - name: Run gtfstidy to clean and merge feeds
+        run: |
+          export PATH=$PATH:$HOME/go/bin
+          gtfstidy -SCRmcdsOeD gtfs_zdzit_olsztyn_latest.zip -o gtfs_zdzit_olsztyn_clean.zip > tidy.log
+
+
+      - name: Commit and push cleaned feed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add gtfs_*_latest.zip
+          git add gtfs_*_clean.zip
+          git add tidy.log
+          git commit -m "Update and clean merged GTFS feed" || echo "No changes to commit"
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
