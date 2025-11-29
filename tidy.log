@@ -1,10 +1,10 @@
 Parsing GTFS feed in 'gtfs_zdzit_olsztyn_latest.zip' ... done. (0 trips [0.00%], 0 stop times [0.00%], 0 stops [0.00%], 0 shapes [0.00%], 0 services [0.00%], 0 routes [0.00%], 0 agencies [0.00%], 0 transfers [0.00%], 0 pathways [0.00%], 0 levels [0.00%], 0 fare attributes [0.00%], 0 translations [0.00%] dropped due to errors.)
-Removing unreferenced entries... done. (-0 trips [-0.00%], -226 stops [-26.81%], -0 shapes [-0.00%], -0 services [-0.00%], -0 routes [-0.00%], -0 agencies [-0.00%], -0 transfers [-0.00%])
+Removing unreferenced entries... done. (-0 trips [-0.00%], -247 stops [-29.37%], -0 shapes [-0.00%], -0 services [-0.00%], -0 routes [-0.00%], -0 agencies [-0.00%], -0 transfers [-0.00%])
 Remeasuring shapes... done. (0 shapes remeasured)
 Minimizing shapes... done. (-0 shape points [-0.00%])
 Removing redundant shapes... done. (-0 shapes [-0.00%])
 Removing redundant routes... done. (-0 routes [-0.00%])
 Removing service duplicates... done. (-0 services [-0.00%])
-Minimizing services... done. (-30 calendar_dates.txt entries [-85.71%], +4 calendar.txt entries)
+Minimizing services... done. (-32 calendar_dates.txt entries [-94.11%], +6 calendar.txt entries)
 Minimizing ids... done.
 Outputting GTFS feed to 'gtfs_zdzit_olsztyn_clean.zip'... done.
